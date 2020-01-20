@@ -1,4 +1,4 @@
-# 画像ファイルが壊れないようにbinaryとして認識させる
+# Avoid image corruption issues
 *.jpg binary
 *.gif binary
 *.png binary
