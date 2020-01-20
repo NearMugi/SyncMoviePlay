@@ -1,0 +1,4 @@
+# 画像ファイルが壊れないようにbinaryとして認識させる
+*.jpg binary
+*.gif binary
+*.png binary
