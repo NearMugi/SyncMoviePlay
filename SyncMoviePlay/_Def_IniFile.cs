@@ -10,10 +10,8 @@ namespace ns_IniFile
         public enum IniFileID
         {
             NONE,
-            USB = 1,        //ポート名,ボーレート,データビット
             DISPLAY = 2,    //ディスプレイごとの動画
             OPTION = 3,     //画面の結合(1,2,3,4,横,縦) true or false
-            OFFSET = 4,      //送信オフセット
             TURMINAL,
         }
 

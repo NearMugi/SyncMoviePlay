@@ -32,7 +32,6 @@ E:\WorkSpace\#Study\C#\SyncMoviePlay_2\SyncMoviePlay\obj\Release\SyncMoviePlay.p
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\bin\Release\SyncMoviePlay.exe.config
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\bin\Release\SyncMoviePlay.exe
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\bin\Release\SyncMoviePlay.pdb
-D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.csprojAssemblyReference.cache
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\MainWindow.g.cs
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\MoviePlay.g.cs
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\App.g.cs
@@ -43,6 +42,5 @@ D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\MoviePlay
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.g.resources
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.Properties.Resources.resources
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.csproj.GenerateResource.cache
-D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.csproj.CoreCompileInputs.cache
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.exe
 D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlay\obj\Release\SyncMoviePlay.pdb

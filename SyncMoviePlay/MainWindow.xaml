@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SyncMoviePlay"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="動画再生" Height="850" Width="650" 
+        Title="動画再生" Height="400" Width="650" 
         PreviewKeyDown="Window_PreviewKeyDown"
         MouseMove="Chk"
         Closing="Window_Closing"
@@ -53,49 +53,16 @@
         <RadioButton x:Name="radioButton_Vertical" Content="縦方向" HorizontalAlignment="Left" Margin="75,223,0,0" VerticalAlignment="Top"/>
 
 
-        <Button x:Name="btn_playSetting" Content="演出準備" HorizontalAlignment="Left" Margin="15,260,0,0" VerticalAlignment="Top" Width="75" Click="btn_playSetting_Click"  Height="40" Background="#FFBFF52D"/>
-        <Button x:Name="btn_play" Content="演出開始" HorizontalAlignment="Left" Margin="15,310,0,0" VerticalAlignment="Top" Width="75" Click="btn_play_Click" Height="40" BorderBrush="#FF570000" Background="#FFBFF52D"/>
-        <Button x:Name="btn_ptn1" Content="  演出終了&#xA;【原点復帰】" HorizontalAlignment="Left" Margin="15,360,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn1_Click" Height="40" Background="#FF2CAA07"/>
-
-        <Label x:Name="lbl_memo1" Content="COM__START1&#xA;動作が完了するまで待機" HorizontalAlignment="Left" Margin="95,260,0,0" VerticalAlignment="Top" Height="45" Width="150" FontSize="11"/>
-        <Label x:Name="lbl_memo2" Content="COM__START2&#xA;" HorizontalAlignment="Left" Margin="95,310,0,0" VerticalAlignment="Top" Height="45" Width="150"/>
-        <Label x:Name="lbl_memo6" Content="COM__START3&#xA;" HorizontalAlignment="Left" Margin="96,360,0,0" VerticalAlignment="Top" Height="45" Width="125"/>
-
-
-        <Button x:Name="btn_ptn2" Content="キメ" HorizontalAlignment="Left" Margin="225,260,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn2_Click" Height="40" Background="#FFBFF52D"/>
-        <Button x:Name="btn_ptn3" Content="液晶中間位置" HorizontalAlignment="Left" Margin="225,310,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn3_Click" Height="40" FontSize="11" Background="#FFBFF52D"/>
-        <Button x:Name="btn_ptn4" Content="液晶下段位置" HorizontalAlignment="Left" Margin="225,360,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn4_Click" Height="40" FontSize="11" Background="#FFBFF52D"/>
-        <Button x:Name="btn_ptn6" Content="液晶3D確認位置" HorizontalAlignment="Left" Margin="225,410,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn6_Click" Height="40" FontSize="9" Background="#FFBFF52D"/>
-
-        <Label x:Name="lbl_memo7" Content="COM__START4&#xA;" HorizontalAlignment="Left" Margin="310,260,0,0" VerticalAlignment="Top" Height="45" Width="125"/>
-        <Label x:Name="lbl_memo8" Content="COM__START5&#xA;" HorizontalAlignment="Left" Margin="310,310,0,0" VerticalAlignment="Top" Height="45" Width="125"/>
-        <Label x:Name="lbl_memo9" Content="COM__START6&#xA;" HorizontalAlignment="Left" Margin="310,360,0,0" VerticalAlignment="Top" Height="45" Width="87"/>
-        <Label x:Name="lbl_memo11" Content="COM__START8&#xA;" HorizontalAlignment="Left" Margin="310,410,0,0" VerticalAlignment="Top" Height="45" Width="87"/>
-
-
-        <Button x:Name="btn_stop" Content="　リセット&#xA;[緊急停止]" HorizontalAlignment="Left" Margin="440,260,0,0" VerticalAlignment="Top" Width="75" Click="btn_stop_Click" Height="40" Background="#FFFFB6B6"/>
-        <Button x:Name="btn_init" Content="原点復帰" HorizontalAlignment="Left" Margin="440,310,0,0" VerticalAlignment="Top" Width="75" Click="btn_init_Click" Height="40" Background="#FFFF4A4A"/>
-        <Button x:Name="btn_ptn5" Content="　　原点復帰&#xA;【上液晶出現状態】" HorizontalAlignment="Left" Margin="440,360,0,0" VerticalAlignment="Top" Width="75" Click="btn_ptn5_Click" Height="40" FontSize="8" Background="#FFFF4A4A"/>
-
-        <Label x:Name="lbl_memo3" Content="COM__STOP&#xA;" HorizontalAlignment="Left" Margin="515,260,0,0" VerticalAlignment="Top" Height="45" Width="100"/>
-        <Label x:Name="lbl_memo4" Content="COM__INIT&#xA;リセット実行後のみ有効" HorizontalAlignment="Left" Margin="515,310,0,0" VerticalAlignment="Top" Height="45" Width="120" FontSize="11"/>
-        <Label x:Name="lbl_memo10" Content="COM__START7&#xA;リセット実行後のみ有効" HorizontalAlignment="Left" Margin="515,360,0,0" VerticalAlignment="Top" Height="45" Width="120" FontSize="11"/>
-
-
-        <Button x:Name="btn_movie" Content="動画のみ再生" HorizontalAlignment="Left" Margin="440,460,0,0" VerticalAlignment="Top" Width="75" Click="btn_movie_Click" Height="40"/>
-        <Label x:Name="lbl_memo5" Content="コマンド無し&#xA;" HorizontalAlignment="Left" Margin="515,460,0,0" VerticalAlignment="Top" Height="45" Width="100"/>
+    <Button x:Name="btn_movie" Content="再生" HorizontalAlignment="Left" Margin="555,197,0,0" VerticalAlignment="Top" Width="75" Click="btn_movie_Click" Height="40"/>
 
 
 
-        <CheckBox x:Name="chk_Repeat" Content="リピート　※即実行" HorizontalAlignment="Left" Margin="351,219,0,0" VerticalAlignment="Top" Height="15" Width="142"/>
-        <Label x:Name="lbl_SendTime" Content="コマンド送信オフセット：" HorizontalAlignment="Left" Margin="351,190,0,0" VerticalAlignment="Top" Height="26" Width="124"/>
-        <TextBox x:Name="txt_SendTime" HorizontalAlignment="Left" Height="20" Margin="475,192,0,0" Text="0" VerticalAlignment="Top" Width="40"/>
-        <Label x:Name="lbl_SendCmd2" Content="(ms)" HorizontalAlignment="Left" Margin="511,192,0,0" VerticalAlignment="Top" Height="26" Width="33" RenderTransformOrigin="-0.182,2.269"/>
+    <CheckBox x:Name="chk_Repeat" Content="リピート" HorizontalAlignment="Left" Margin="350,197,0,0" VerticalAlignment="Top" Height="15" Width="142" IsChecked="True" />
 
-        <ListView x:Name="listView_log"
+    <ListView x:Name="listView_log"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                      FontSize="11" Margin="10,519,10,10"
+                      FontSize="11" Margin="10,250,10,10"
                       >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

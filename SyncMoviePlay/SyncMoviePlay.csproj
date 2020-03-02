@@ -66,7 +66,6 @@
     <Compile Include="MoviePlay.xaml.cs">
       <DependentUpon>MoviePlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SerialPort.cs" />
     <Compile Include="_Def_IniFile.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

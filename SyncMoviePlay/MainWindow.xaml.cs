@@ -1,5 +1,4 @@
-﻿using ns_SerialPort;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,29 +12,10 @@ namespace SyncMoviePlay
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// 入出力ファイルクラスのインスタンス
-        /// </summary>
-        ManageInOutFile _InOutFile;
-
-        /// <summary>
-        /// USB接続を管理するクラスのインスタンス
-        /// </summary>
-        SerialPortProcessor _usb;
-
         private bool _isClosed = false;
         /// <summary>ウィンドウが閉じられたかどうか</summary>
         public bool IsClosed { get { return _isClosed; } }
 
-
-        private bool _isDataRecieved = false;
-        /// <summary>ボードからデータを受信したかどうか　※未使用</summary>
-        public bool IsDataRecieved { get { return _isDataRecieved; } }
-
-        private bool _isDataSended = false;
-        /// <summary>ボードへデータを送信したかどうか　※未使用</summary>
-        public bool IsDataSended { get { return _isDataSended; } }
-        
         
         volatile MoviePlay[] _movieDisplay = null;
         int _moviePlayCnt;
@@ -61,7 +41,6 @@ namespace SyncMoviePlay
             //++++++++++++++++++++++
             this.Loaded += (s, e) =>
             {
-                InitUSBConnect();
                 _main.InitdispList();
 
                 _movieDisplay = new MoviePlay[_main._dispCnt];
@@ -71,7 +50,6 @@ namespace SyncMoviePlay
                 lbl_display_3.Content = _main.DebugdispList(2);
                 lbl_display_4.Content = _main.DebugdispList(3);
 
-                btn_play.IsEnabled = false;
                 btn_movie.IsEnabled = false;
 
                 //前回の設定を呼び出す
@@ -85,14 +63,6 @@ namespace SyncMoviePlay
         /// </summary>
         public void Init()
         {
-            _usb = new SerialPortProcessor();
-
-            _usb.OnSpecifiedDeviceRemoved += new EventHandler(this.usb_OnSpecifiedDeviceRemoved);
-            _usb.OnDataSend += new EventHandler(this.usb_OnDataSend);
-            _usb.OnDataRecieved += new OnDataRecievedEventHandler(this.usb_OnDataRecieved);
-            _usb.OnSpecifiedDeviceArrived += new EventHandler(this.usb_OnSpecifiedDeviceArrived);
-
-            SendCmd = null;
         }
 
         //ログの追加
@@ -134,42 +104,6 @@ namespace SyncMoviePlay
         }
 
         /// <summary>
-        /// USB接続
-        /// </summary>
-        void InitUSBConnect()
-        {
-            //接続中であれば一度閉じる
-            _usb.Close();
-
-            //USBと接続する
-            ns_IniFile.SettingIni _ini = new ns_IniFile.SettingIni();
-            string[] GetData;
-            _ini.Func_getIni(ns_IniFile.SettingIni.IniFileID.USB, out GetData);
-            try
-            {
-                _usb.PortNM = GetData[0];
-                _usb.Bps = Int32.Parse(GetData[1]);
-                _usb.DataBit = Int32.Parse(GetData[2]);
-                _usb.Open();
-                if(_usb.ErrMsg != string.Empty) AddLog(_usb.ErrMsg);
-
-                //USBに接続できた場合
-                if (_usb != null)
-                {
-                    //センサーを初期化する
-                    _InOutFile = new ManageInOutFile();
-                }
-
-            }
-            catch
-            {
-                MessageBox.Show("Iniファイルに誤りがあります。\r\n ファイルが存在するか確認して下さい。", "【エラー】デバイスのチェック");
-                _isClosed = true;
-            }
-
-        }
-
-        /// <summary>
         /// 前回の設定を呼び出す
         /// </summary>
         void InitDisplayInfo()
@@ -193,10 +127,6 @@ namespace SyncMoviePlay
             radioButton_Horizon.IsChecked = Convert.ToBoolean(GetData[4]);
             radioButton_Vertical.IsChecked = Convert.ToBoolean(GetData[5]);
 
-            //送信オフセット
-            _ini.Func_getIni(ns_IniFile.SettingIni.IniFileID.OFFSET, out GetData);
-            txt_SendTime.Text = GetData[0];
-            
         }
 
         /// <summary>
@@ -233,10 +163,6 @@ namespace SyncMoviePlay
             SetData.Append(radioButton_Vertical.IsChecked.ToString());
             _ini.Func_SetIni(ns_IniFile.SettingIni.IniFileID.OPTION, SetData.ToString());
 
-            //送信オフセット
-            SetData.Clear();
-            SetData.Append(txt_SendTime.Text);
-            _ini.Func_SetIni(ns_IniFile.SettingIni.IniFileID.OFFSET, SetData.ToString());
         }
         /// <summary>
         /// 正しいパスになっているかチェックする
@@ -250,116 +176,6 @@ namespace SyncMoviePlay
             if (_main.SetMoviePath(i, path).Length > 0) s = path;
             return s;
         }
-
-        public void Send()
-        {
-            if (_usb == null) return;
-            if (_InOutFile == null) return;
-            if (SendCmd == null) return;
-
-            _InOutFile.Func_SendCommand(_usb, SendCmd);
-
-            //末尾についている0x0d,0x0aを削除して、無駄な改行が入らないようにしている。
-            string _tmp = System.Text.Encoding.ASCII.GetString(SendCmd);
-            AddLog("[送信]" + _tmp.Remove(_tmp.IndexOf((char)0x0d)));
-
-            SendCmd = null;
-        }
-
-        public void Receive()
-        {
-            _usb.Sync_ReceiveData();
-        }
-
-        /// <summary>
-        /// USB接続された時のイベントを受け取る
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void usb_OnSpecifiedDeviceArrived(object sender, EventArgs e)
-        {
-            AddLog("ボードに接続しました");
-        }
-
-        /// <summary>
-        /// USBが取り外れた時のイベントを受け取る
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void usb_OnSpecifiedDeviceRemoved(object sender, EventArgs e)
-        {
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(new EventHandler(usb_OnSpecifiedDeviceRemoved), new object[] { sender, e });
-            }
-            else
-            {
-                AddLog("ボードとの接続を切断しました");
-            }
-        }
-
-        /// <summary>
-        /// データ受信時にイベントを受け取る
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void usb_OnDataRecieved(object sender, OnDataRecievedEventArgs args)
-        {
-            if (!Dispatcher.CheckAccess())
-            {
-                try
-                {
-                    Dispatcher.Invoke(new OnDataRecievedEventHandler(usb_OnDataRecieved), new object[] { sender, args });
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-            }
-            else
-            {
-                string s = "";
-                foreach (byte b in args.data)
-                {
-                    s += string.Format("{0,3:X2}", b) + " ";
-                }
-                //                Console.WriteLine("Input             :{0}", s);
-                //                Console.WriteLine("Input ASCII Code  : {0}", System.Text.Encoding.ASCII.GetString(args.data));
-
-                string ErrLog = "";
-                ErrLog = _InOutFile.Func_Receive(_usb, args.data);
-                if (ErrLog.Length > 0)
-                {
-                    AddLog(ErrLog);
-                }
-                else
-                {
-                    //実測データを反映する
-                    if (s != "")
-                    {
-//                        string _s = "[受信]" + s;
-//                        AddLog(_s);
-                        //    MessageBox.Show(s);
-                    }
-                    
-                }
-
-                //_isDataSended = false;
-            }
-
-        }
-
-        /// <summary>
-        /// データ送信時にイベントを受け取る
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void usb_OnDataSend(object sender, EventArgs e)
-        {
-            //_isDataSended = true;
-        }
-
-
 
         //+++++++++++++++++++++++++++++++++++++++++++++++
         //入力値のチェックなど、画面に関する処理
@@ -471,7 +287,6 @@ namespace SyncMoviePlay
             txt.Text = fileInfo;
             lbl.Content = _main.SetMoviePath(i, txt.Text);
             AddLog(_main.JdgReady());
-            btn_play.IsEnabled = _main.dispReady;
             btn_movie.IsEnabled = _main.dispReady;
         }
 
@@ -482,61 +297,11 @@ namespace SyncMoviePlay
         }
         
 
-        private void btn_playSetting_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START1;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_play_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START2;
-            MoviePlay();
-
-        }
-
         private void btn_movie_Click(object sender, RoutedEventArgs e)
         {
             _main.sendStartCmd = string.Empty;
             MoviePlay();
         }
-
-        private void btn_ptn1_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START3;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_ptn2_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START4;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_ptn3_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START5;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_ptn4_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START6;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_ptn5_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START7;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
-        private void btn_ptn6_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.START8;
-            SetSendCmd(_main.sendStartCmd);
-        }
-
 
         /// <summary>
         /// 動画再生
@@ -548,13 +313,7 @@ namespace SyncMoviePlay
 
             //リピートの有無
             _main.repeat = (bool)chk_Repeat.IsChecked;
-
-            //送信オフセットの設定
-            if (!_main.chkSendTime(txt_SendTime.Text))
-            {
-                AddLog("送信オフセットに誤りがあります");
-            }
-
+            
             close_movieDisplay();
 
             //画面を結合するかどうかで処理を分ける。
@@ -780,31 +539,6 @@ namespace SyncMoviePlay
             }
         }
 
-        /// <summary>
-        /// 停止ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_stop_Click(object sender, RoutedEventArgs e)
-        {
-
-            _main.sendStartCmd = Common.main.STOP;
-            SetSendCmd(_main.sendStartCmd);
-            close_movieDisplay();
-
-        }
-
-        /// <summary>
-        /// 初期化ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_init_Click(object sender, RoutedEventArgs e)
-        {
-            _main.sendStartCmd = Common.main.INIT;
-            SetSendCmd(_main.sendStartCmd);
-            close_movieDisplay();
-        }
 
         void close_movieDisplay()
         {
@@ -852,7 +586,6 @@ namespace SyncMoviePlay
             _main.dispList[i]._moviePath = string.Empty;
 
             AddLog(_main.JdgReady());
-            btn_play.IsEnabled = _main.dispReady;
             btn_movie.IsEnabled = _main.dispReady;
         }
 

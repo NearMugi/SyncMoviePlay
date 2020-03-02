@@ -63,18 +63,8 @@ namespace SyncMoviePlay
             //+++++++++++++++
             while (!_win.IsClosed)
             {
-
-                //送受信
-                //USBポートからデータを受信
-                _win.Receive();
-
-                //USBポートへデータを送信
-                _win.Send();
-
                 // UIメッセージ処理
                 DoEvents();
-                
-
             }
 
             await Task.Delay(1);
