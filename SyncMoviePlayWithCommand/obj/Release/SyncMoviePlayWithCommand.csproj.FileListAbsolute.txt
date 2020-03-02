@@ -1,0 +1,16 @@
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\MainWindow.g.cs
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\MoviePlay.g.cs
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\App.g.cs
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand_MarkupCompile.cache
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand_MarkupCompile.lref
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.csprojAssemblyReference.cache
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\bin\Release\SyncMoviePlayWithCommand.exe.config
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\bin\Release\SyncMoviePlayWithCommand.exe
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\bin\Release\SyncMoviePlayWithCommand.pdb
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\MainWindow.baml
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\MoviePlay.baml
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.g.resources
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.Properties.Resources.resources
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.csproj.GenerateResource.cache
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.exe
+D:\#WorkSpace\#PersonalDevelop\SyncMoviePlay\SyncMoviePlayWithCommand\obj\Release\SyncMoviePlayWithCommand.pdb
